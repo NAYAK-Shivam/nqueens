@@ -9,8 +9,9 @@ function App() {
   const [index, setIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [logs, setLogs] = useState([]);
-  const foundSolutionsRef = useRef(new Set()); // Track which solutions logged
+  const foundSolutionsRef = useRef(new Set());
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
   const fetchSolutions = async () => {
     if (n < 4 || n > 12) {
       alert("Please enter N between 4 and 12.");
@@ -35,14 +36,13 @@ function App() {
     const interval = setInterval(() => {
       setIndex(i);
 
-      // Check if this step matches any solution and hasn't been logged yet
       solutions.forEach((sol, idx) => {
         if (
           JSON.stringify(sol) === JSON.stringify(steps[i]) &&
           !foundSolutionsRef.current.has(idx)
         ) {
           foundSolutionsRef.current.add(idx);
-          setLogs((prev) => [...prev, `✅ Solution ${idx + 1} found!`]);
+          setLogs((prev) => [...prev, `Solution ${idx + 1} found!`]);
         }
       });
 
@@ -80,8 +80,23 @@ function App() {
 
   return (
     <div className="App">
-      <h1>N-Queens Visualizer</h1>
-      <div>
+      {/* Header */}
+      <header className="header">
+        <h1>N-Queens Visualizer</h1>
+      </header>
+
+      {/* Introduction */}
+      <section className="intro">
+        <p>
+          Welcome to the N-Queens Visualizer! This tool helps you explore and
+          visualize solutions to the classic N-Queens problem using
+          backtracking. Enter a board size (N), generate all possible solutions,
+          and watch the algorithm in action.
+        </p>
+      </section>
+
+      {/* Form */}
+      <section className="form-section">
         <label>Board size (n): </label>
         <input
           type="number"
@@ -97,7 +112,7 @@ function App() {
         <button onClick={startVisualization} disabled={isPlaying}>
           Start Visualization
         </button>
-      </div>
+      </section>
 
       {/* Current step visualization */}
       <div style={{ marginTop: "20px" }}>
@@ -111,16 +126,7 @@ function App() {
 
       {/* Simulation log */}
       {logs.length > 0 && (
-        <div
-          style={{
-            marginTop: "20px",
-            padding: "10px",
-            border: "1px solid #ccc",
-            background: "#f9f9f9",
-            maxHeight: "150px",
-            overflowY: "auto",
-          }}
-        >
+        <div className="log-section">
           <h3>Simulation Log</h3>
           {logs.map((log, idx) => (
             <div key={idx}>{log}</div>
@@ -130,9 +136,9 @@ function App() {
 
       {/* Display found solutions */}
       {solutions.length > 0 && (
-        <div style={{ marginTop: "30px" }}>
+        <div className="solutions-section">
           <h2>Found Solutions ({solutions.length})</h2>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+          <div className="solutions-list">
             {solutions.map((sol, idx) => (
               <div key={idx}>
                 <h4>Solution {idx + 1}</h4>
@@ -142,6 +148,28 @@ function App() {
           </div>
         </div>
       )}
+
+      {/* Footer */}
+      <footer className="footer">
+        <span>
+          © {new Date().getFullYear()} |{" "}
+          <a
+            href="https://github.com/NAYAK-Shivam/nqueens"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>{" "}
+          |{" "}
+          <a
+            href="https://www.linkedin.com/in/shivam-nayak-8161961b7/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+        </span>
+      </footer>
     </div>
   );
 }
