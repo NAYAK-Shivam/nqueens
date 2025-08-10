@@ -10,7 +10,7 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [logs, setLogs] = useState([]);
   const foundSolutionsRef = useRef(new Set()); // Track which solutions logged
-
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
   const fetchSolutions = async () => {
     if (n < 4 || n > 12) {
       alert("Please enter N between 4 and 12.");
@@ -23,7 +23,7 @@ function App() {
     setLogs([]);
     foundSolutionsRef.current.clear();
 
-    const res = await axios.get(`http://localhost:5000/solve?n=${n}`);
+    const res = await axios.get(`${API_URL}/solve?n=${n}`);
     setSteps(res.data.steps);
     setSolutions(res.data.solutions);
   };
