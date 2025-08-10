@@ -63,5 +63,5 @@ You can select the board size, generate all possible solutions, and watch how th
 
 ## Author
 
-- [Your Name](https://www.linkedin.com/in/YOUR_LINKEDIN_USERNAME/)
-- [GitHub](https://github.com/YOUR_GITHUB_USERNAME)
+- [Your Name](https://www.linkedin.com/in/shivam-nayak-8161961b7/)
+- [GitHub](https://github.com/NAYAK-Shivam)
